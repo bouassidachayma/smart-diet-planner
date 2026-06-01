@@ -1,0 +1,761 @@
+html {
+  scroll-behavior: smooth;
+}
+/* === GENERAL === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  word-wrap: break-word;
+}
+
+body {
+  background: linear-gradient(135deg, #e3f2f1, #ffffff);
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === HEADER === */
+header {
+  background: linear-gradient(90deg, #47c17a, #3da487);
+  color: white;
+  text-align: center;
+  padding: 25px 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+header p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* === MAIN CONTENT === */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 15px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1600px;
+}
+
+/* === FORM CARD === */
+#user-form {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 25px;
+  width: 100%;
+  max-width: 550px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  margin-bottom: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#user-form:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+#user-form h2 {
+  text-align: center;
+  margin-bottom: 18px;
+  color: #2e7d67;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+input, select {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border 0.2s ease;
+  font-size: 0.9rem;
+}
+
+input:focus, select:focus {
+  border-color: #47c17a;
+}
+
+h3 {
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.health-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+  gap: 8px 30px;
+  max-width: 550px;
+}
+
+.condition {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #2a2a2a;
+  cursor: pointer;
+  user-select: none;
+}
+
+.circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #30a46c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+  font-size: 10px;
+  color: white;
+  flex-shrink: 0;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.checked .circle {
+  background-color: #30a46c;
+}
+
+.unchecked .circle {
+  background-color: transparent;
+  border: 2px solid #9ecfaf;
+}
+
+button {
+  background: #47c17a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: #3da487;
+  transform: scale(1.02);
+}
+
+/* === RESULTS === */
+#results {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px 25px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+#results h2 {
+  color: #2e7d67;
+  margin-bottom: 12px;
+  font-size: 1.6rem;
+}
+
+#results p {
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+}
+
+#mealPlan {
+  text-align: left;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+#mealPlan h3 {
+  color: #3da487;
+  margin-bottom: 8px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* === FOOTER === */
+footer {
+  text-align: center;
+  padding: 12px;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/* === CONDITION & ALLERGY SECTIONS === */
+.condition-fieldset,
+.allergy-fieldset {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-top: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px 20px;
+  transition: all 0.3s ease;
+}
+
+.condition-fieldset legend,
+.allergy-fieldset legend {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #2e7d67;
+  padding: 0 8px;
+}
+
+/* Option box */
+.condition,
+.allergy-option {
+  display: flex;
+  align-items: center;
+  background: #f9f9f9;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 8px 10px;
+  cursor: pointer;
+  color: #333;
+  font-weight: 500;
+  font-size: 0.9rem;
+  user-select: none;
+  transition: all 0.25s ease;
+}
+
+.condition:hover,
+.allergy-option:hover {
+  background: #f0fdf5;
+  border-color: #cde9d5;
+  transform: translateY(-2px);
+}
+
+.circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #47c17a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #fff;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.checked {
+  background: linear-gradient(135deg, #e4f8eb, #ffffff);
+  border-color: #47c17a;
+  box-shadow: 0 3px 6px rgba(71, 193, 122, 0.15);
+}
+
+.condition[data-value="none"].checked .circle,
+.allergy-option[data-value="none"].checked .circle {
+  background-color: #47c17a !important;
+  border-color: #47c17a !important;
+  color: #fff !important;
+}
+
+.checked .circle {
+  background-color: #47c17a;
+  border-color: #47c17a;
+  color: white;
+}
+
+.unchecked .circle {
+  background-color: transparent;
+  border-color: #a4d6b7;
+  color: transparent;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  transform: none;
+}
+
+.condition,
+.allergy-option {
+  transition: background 0.25s ease, transform 0.2s ease, border-color 0.25s ease, opacity 0.3s ease;
+}
+
+/* === SELECT DROPDOWNS === */
+select {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 8px 12px;
+  border: 1.8px solid #cde9d5;
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-size: 0.9rem;
+  color: #333;
+  transition: all 0.25s ease;
+  background-image: linear-gradient(45deg, transparent 50%, #47c17a 50%), 
+                    linear-gradient(135deg, #47c17a 50%, transparent 50%);
+  background-position: calc(100% - 15px) calc(1em + 0px), calc(100% - 10px) calc(1em + 0px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+select:hover {
+  border-color: #47c17a;
+  background-color: #f8fef9;
+}
+
+select:focus {
+  outline: none;
+  border-color: #47c17a;
+  box-shadow: 0 0 0 3px rgba(71, 193, 122, 0.2);
+}
+
+select:active {
+  transform: scale(0.99);
+}
+
+label {
+  font-weight: 500;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* ===== WEEKLY CALENDAR GRID (COMPACT) ===== */
+#weeklyPlan {
+    margin-top: 15px;
+    width: 100%;
+}
+
+#weeklyPlan h3 {
+    text-align: center;
+    color: #2e7d67;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Grid: default 3 columns, tight gap */
+.week-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+/* Tablet: 2 columns */
+@media (max-width: 900px) {
+    .week-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 600px) {
+    .week-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Day card – very compact */
+.day-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(71, 193, 122, 0.15);
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.day-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.day-header {
+    background: linear-gradient(135deg, #47c17a, #3da487);
+    color: white;
+    padding: 10px 14px;
+}
+
+.day-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.day-stats {
+    font-size: 0.75rem;
+    opacity: 0.95;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Calorie Goal Container */
+.calorie-goal-container {
+    padding: 10px 14px 8px 14px;
+    background: #f8fbf9;
+    border-bottom: 1px solid #e0ebe4;
+}
+
+.goal-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #2e7d67;
+    margin-bottom: 4px;
+}
+
+.goal-percent {
+    font-weight: 700;
+    background: #d4ede2;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+}
+
+/* Progress bar – thicker and more visible */
+.calorie-progress {
+    width: 100%;
+    height: 12px;                     /* thicker */
+    background-color: #e2e8e4;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    margin: 6px 0 4px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.4s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress-fill.good {
+    background: linear-gradient(90deg, #47c17a, #3da487);
+}
+
+.progress-fill.near {
+    background: linear-gradient(90deg, #f9a826, #e08e0b);
+}
+
+.progress-fill.over {
+    background: linear-gradient(90deg, #e05353, #c0392b);
+}
+
+.goal-consumed {
+    font-size: 0.7rem;
+    color: #4a6b5d;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+}
+.meals-container {
+    padding: 5px 0;
+    flex: 1;
+}
+
+.meal-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 12px;
+    border-bottom: 1px solid #eef3ef;
+    transition: background 0.2s;
+}
+
+.meal-item:last-child {
+    border-bottom: none;
+}
+
+.meal-item:hover {
+    background: #fafffd;
+}
+
+.meal-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+/* Meal type (BREAKFAST etc) – larger than meal name */
+.meal-type {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 700;
+    color: #47c17a;
+}
+
+/* Meal name – slightly smaller, but readable */
+.meal-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #1e2b24;
+    line-height: 1.3;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.meal-meta {
+    font-size: 0.7rem;
+    color: #5a6e63;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+/* Reason badge – tiny */
+.meal-reason {
+    font-size: 0.65rem;
+    background: #eaf6ef;
+    color: #2e7d67;
+    padding: 3px 8px;
+    border-radius: 16px;
+    display: inline-block;
+    margin-top: 3px;
+    border-left: 2px solid #47c17a;
+    line-height: 1.3;
+    width: fit-content;
+}
+
+.meal-reason .reason-text {
+    display: inline;
+    font-weight: 400;
+}
+
+.meal-reason:hover .reason-text {
+    display: inline;
+}
+
+/* Regenerate note */
+.regenerate-note {
+    text-align: center;
+    margin-top: 25px;
+    color: #6b8478;
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+/* ===== DESKTOP: 4 cards ===== */
+@media (min-width: 1200px) {
+    .week-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+}
+
+/* ===== WIDE SCREENS: 5 cards ===== */
+@media (min-width: 1600px) {
+    .week-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+    }
+}
+/* User bar with welcome and Quitter button */
+.user-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;   /* matches form width */
+    margin: 0 auto 20px auto;
+    padding: 10px 0;
+    border-bottom: 1px solid #d0e8da;
+}
+
+.logout-btn {
+    background: #47c17a;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.logout-btn:hover {
+    background: #3da487;
+}
+/* Chatbot Styles */
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    font-family: "Poppins", sans-serif;
+}
+
+.chatbot-toggle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #47c17a, #3da487);
+    color: white;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.chatbot-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.chatbot-window {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 320px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    border: 1px solid #d0e8da;
+}
+
+.chatbot-window.active {
+    display: flex;
+}
+
+.chatbot-header {
+    background: linear-gradient(90deg, #47c17a, #3da487);
+    color: white;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+.chatbot-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+.chatbot-messages {
+    height: 300px;
+    overflow-y: auto;
+    padding: 15px;
+    background: #f9fbfa;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 18px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.message.bot {
+    background: #e8f3ee;
+    color: #1e2b24;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+
+.message.user {
+    background: #47c17a;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+}
+
+.chatbot-input {
+    display: flex;
+    padding: 12px;
+    background: white;
+    border-top: 1px solid #e0ebe4;
+    gap: 8px;
+}
+
+.chatbot-input input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #cde9d5;
+    border-radius: 30px;
+    outline: none;
+    font-size: 0.9rem;
+}
+
+.chatbot-input input:focus {
+    border-color: #47c17a;
+}
+
+.chatbot-input button {
+    background: #47c17a;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.chatbot-input button:hover {
+    background: #3da487;
+}
